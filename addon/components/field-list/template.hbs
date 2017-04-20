@@ -1,0 +1,11 @@
+{{#if showSearch}}
+  {{input value=search class="form-control" placeholder="Filter list by attribute name..."}}
+{{/if}}
+<ul class="nav nav-pills nav-stacked">
+  {{#each filteredFields as |field|}}
+    {{field-list-item model=field
+      showMetadata=showMetadata
+      onShowMetadata=onShowMetadata
+    }}
+  {{/each}}
+</ul>

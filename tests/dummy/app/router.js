@@ -11,6 +11,7 @@ Router.map(function () {
     this.route('multiselect');
     this.route('facets');
   });
+  this.route('fieldlist');
 });
 
 export default Router;

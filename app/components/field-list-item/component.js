@@ -1,0 +1,1 @@
+export { default } from 'ember-arcgis-portal-components/components/field-list-item/component';
