@@ -1,11 +1,11 @@
 {
   "name": "ember-arcgis-portal-components",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.0.1",
+  "description": "Ember components useful for building apps that work with ArcGIS Online/Portal",
   "keywords": [
     "ember-addon"
   ],
-  "license": "MIT",
+  "license": "Apache-2",
   "author": "",
   "directories": {
     "doc": "doc",
