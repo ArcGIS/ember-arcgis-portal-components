@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-sm-12">
+    <h2>Field List</h2>
+  </div>
+  <div class="col-sm-12">
+    <h3>Inline Panel Example</h3>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Select a Field</h3>
+      </div>
+      <div class="panel-body">
+        {{field-list
+          fields=model.fields
+          showSearch=true
+          showMetadata=true
+          onShowMetadata=(action 'onShowMetadata')
+          selectAction=(action 'onSelectField')}}
+      </div>
+    </div>
+  </div>
+</div>
