@@ -1,3 +1,4 @@
+<span class="pull-right item-picker-item-results-item-type">{{model.type}}</span>
 <a href="" {{action 'selectItem' model}}>
   <div class="checkbox-inline">
     <input type="checkbox" checked={{readonly checked}}>
@@ -11,4 +12,3 @@
     </div>
   </div>
 </a>
-<a class="pull-right item-picker-item-results-item-details" target="_blank" href={{url}}>{{t (concat _i18nScope "itemDetails")}}</a>

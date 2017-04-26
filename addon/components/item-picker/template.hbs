@@ -1,55 +1,74 @@
-<form {{action "doSearch" on="submit"}}>
-  <div class="form-group">
-    <label for="{{inputElementId}}" class="sr-only">{{placeholder}}:</label>
-    {{input id=inputElementId class="form-control" value=q placeholder=placeholder key-up="doSearch"}}
+{{#if showTabs}}
+  <div class="item-picker-radio-buttons col-xs-2">
+    {{#each catalog as |appType|}}
+      {{#radio-button
+        value=appType.name
+        groupValue=selectedCatalogName
+        changed="chooseCatalog"
+      }}
+        <span>{{appType.name}}</span>
+      {{/radio-button}}
+    {{/each}}
   </div>
-</form>
+{{/if}}
 
-<div class="item-picker-results-container">
-  <ul class="results-list">
-    {{#if loading}}
-      <li>{{t (concat _i18nScope "loading")}}...</li>
-    {{else if noItemsFoundMsg}}
-      <li><h3>{{noItemsFoundMsg}}</h3></li>
-    {{else}}
-      {{#each items.results as |item|}}
-        {{item-picker/item-row
-          selectMultiple=selectMultiple
-          itemsToAdd=itemsToAdd
+<div class="{{if showTabs "col-xs-10" "col-xs-12"}}">
+  <form {{action "doSearch" on="submit"}}>
+    <div class="form-group">
+      <label for="{{inputElementId}}" class="sr-only">{{placeholder}}:</label>
+      {{input id=inputElementId class="form-control" value=q placeholder=placeholder key-up="doSearch"}}
+    </div>
+  </form>
+
+  <div class="item-picker-results-container">
+    <ul class="results-list">
+      {{#if loading}}
+        <li>{{t (concat _i18nScope "loading")}}...</li>
+      {{else if noItemsFoundMsg}}
+        <li><h3>{{noItemsFoundMsg}}</h3></li>
+      {{else}}
+        {{#each items.results as |item|}}
+          {{item-picker/item-row
+            selectMultiple=selectMultiple
+            itemsToAdd=itemsToAdd
+            _i18nScope=_i18nScope
+            model=item
+            currentItemId=currentItem.id
+            onClick=(action "onClick")}}
+        {{/each}}
+      {{/if}}
+    </ul>
+
+    {{#if currentItem}}
+      <section class="item-picker-current-item">
+        {{item-picker/item-preview
           _i18nScope=_i18nScope
-          model=item
-          currentItemId=currentItem.id
-          onClick=(action "onClick")}}
-      {{/each}}
-    {{/if}}
-  </ul>
-
-  {{#if currentItem}}
-    <section class="item-picker-current-item">
-      {{item-picker/item-preview
-        _i18nScope=_i18nScope
-        model=currentItem}}
-      <section class="item-picker-controls">
-        <button type="button" class="btn btn-default" {{action "cancelAction"}}>{{t (concat _i18nScope "buttons.back")}}</button>
-        <button type="button" class="btn btn-primary" {{action selectAction currentItem}}>{{t (concat _i18nScope "buttons.select")}}</button>
+          model=currentItem}}
+        <section class="item-picker-controls">
+          <a href="{{currentItem.url}}" target="_blank" class="btn btn-primary btn-block {{disabledStatus}} center-block">{{t (concat _i18nScope "buttons.preview")}}</a>
+          <div class="center-block">
+            <button type="button" class="btn btn-default" {{action "cancelAction"}}>{{t (concat _i18nScope "buttons.back")}}</button>
+            <button type="button" class="btn btn-primary" {{action selectAction currentItem}}>{{t (concat _i18nScope "buttons.select")}}</button>
+          </div>
+        </section>
       </section>
-    </section>
+    {{/if}}
+  </div>
+
+  {{#if selectMultiple}}
+    <div class="item-picker-status">
+      {{t (concat _i18nScope "selectedCount") count=itemsToAdd.length}}
+    </div>
+  {{/if}}
+
+  {{item-pager class="pull-left"
+    _i18nScope=_i18nScope
+    pageSize=pageSize
+    totalCount=totalCount
+    pageNumber=pageNumber
+    changePage=(action "changePage")}}
+
+  {{#if selectMultiple}}
+    <button type="button" class="btn btn-primary pull-right" disabled={{disableAddItems}} {{action selectAction itemsToAdd}}>{{t (concat _i18nScope "buttons.selectMultiple")}}</button>
   {{/if}}
 </div>
-
-{{#if selectMultiple}}
-  <div class="item-picker-status">
-    {{t (concat _i18nScope "selectedCount") count=itemsToAdd.length}}
-  </div>
-{{/if}}
-
-{{item-pager class="pull-left"
-  _i18nScope=_i18nScope
-  pageSize=pageSize
-  totalCount=totalCount
-  pageNumber=pageNumber
-  changePage=(action "changePage")}}
-
-{{#if selectMultiple}}
-  <button type="button" class="btn btn-primary pull-right" disabled={{disableAddItems}} {{action selectAction itemsToAdd}}>{{t (concat _i18nScope "buttons.selectMultiple")}}</button>
-{{/if}}

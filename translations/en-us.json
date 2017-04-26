@@ -20,7 +20,9 @@
       },
       "buttons": {
         "back": "Back",
-        "select": "Select"
+        "select": "Select",
+        "selectMultiple": "Select",
+        "preview": "Preview"
       },
       "aria": {
         "disabled": "Disabled",

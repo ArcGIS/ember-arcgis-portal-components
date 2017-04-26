@@ -1,4 +1,4 @@
-$body-bg: #fff !default;
+$body-bg: #f8f8f8 !default;
 $row-color: #efefef !default;
 $midrange-border-color:#cccccc !default;
 $table-bg-hover: #d9edf7 !default;
@@ -7,9 +7,6 @@ $table-bg-hover: #d9edf7 !default;
   position: relative;
   .item-picker-datasets-pane, .item-picker-items-pane {
     min-height: 55rem;
-  }
-  .item-picker-results-container {
-    min-height: 400px;
   }
 
   ul.pagination {
@@ -40,8 +37,9 @@ $table-bg-hover: #d9edf7 !default;
           color: $gray-dark;
         }
       }
-      .item-picker-item-results-item-details {
+      .item-picker-item-results-item-type {
         margin-top: 8px;
+        margin-right: 10px;
       }
       &.is-selected {
         background-color: $table-bg-hover;
@@ -57,6 +55,37 @@ $table-bg-hover: #d9edf7 !default;
           top: -22px;
         }
       }
+    }
+  }
+
+  .item-picker-radio-buttons {
+    border-right: 1px solid #efefef;
+    padding-left: 0px;
+    padding-right: 0px;
+
+    [type="radio"] {
+      display: none;
+    }
+    label {
+      display: block;
+      cursor: pointer;
+      background-color: #ffffff;
+      padding: 10px;
+      border-bottom: 1px solid #efefef;
+      border-left: 1px solid #efefef;
+      margin-bottom: 0px;
+      margin-left: 15px;
+    }
+    label:first-of-type {
+      border-top: 1px solid #efefef;
+    }
+
+    [type="radio"] + span:before {
+      display: block;
+    }
+
+    .checked {
+      background-color: #d2e9f9;
     }
   }
 
@@ -178,7 +207,17 @@ $table-bg-hover: #d9edf7 !default;
     .item-picker-controls {
       position: absolute;
       bottom: 20px;
-      right: 20px;
+      right: 0px;
+      width: 100%;
+      a {
+        width: 90%;
+        margin-bottom: 10px;
+      }
+      button {
+        width: 40%;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
   }
 }

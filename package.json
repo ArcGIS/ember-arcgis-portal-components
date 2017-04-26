@@ -45,6 +45,7 @@
     "ember-intl": "2.24.2",
     "ember-load-initializers": "^0.6.0",
     "ember-network": "0.3.1",
+    "ember-radio-button": "1.1.1",
     "ember-resolver": "^2.0.3",
     "ember-sanitize": "2.0.2",
     "ember-source": "~2.11.0",

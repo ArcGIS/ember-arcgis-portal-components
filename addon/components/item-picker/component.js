@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import layout from './template';
+import queryHelpers from 'ember-arcgis-portal-components/utils/query-helpers';
 
 export default Ember.Component.extend({
 
@@ -13,7 +14,7 @@ export default Ember.Component.extend({
     return `${this.getWithDefault('i18nScope', 'ember-arcgis-portal-components.itemPicker')}.`;
   }),
 
-  classNames: [ 'item-picker', 'clearfix' ],
+  classNames: [ 'item-picker', 'clearfix', 'row' ],
 
   init () {
     this._super(...arguments);
@@ -32,7 +33,15 @@ export default Ember.Component.extend({
 
   query: '',
 
-  pageSize: 10,
+  pageSize: Ember.computed(function () {
+    return this.get('rowCount') || 10;
+  }),
+
+  disabledStatus: Ember.computed('currentItem', function () {
+    if (!this.get('currentItem.url')) {
+      return 'disabled';
+    }
+  }),
 
   items: Ember.A([]),
 
@@ -45,6 +54,14 @@ export default Ember.Component.extend({
   }),
 
   hasSearched: false,
+
+  showTabs: Ember.computed('catalog', function () {
+    const catalog = this.get('catalog');
+    if (catalog && catalog.length > 1) {
+      return true;
+    }
+    return false;
+  }),
 
   noItemsFoundMsg: Ember.computed('items.[]', 'q', function () {
     let result = '';
@@ -67,13 +84,7 @@ export default Ember.Component.extend({
 
   disableAddItems: Ember.computed.not('hasItemsToAdd'),
 
-  _doSearch (q, page = 1) {
-    this.setProperties({
-      loading: true,
-      currentItem: null,
-      items: null,
-    });
-
+  _defaultSearch (q) {
     let parts = [];
     if (q) {
       parts.push(`title:${q}`);
@@ -87,10 +98,28 @@ export default Ember.Component.extend({
       // this is just so that when searchItemsOnInit === true, it returns something
       parts.push('access:public');
     }
+    return parts.join(' AND ');
+  },
+
+  _doSearch (q, page = 1) {
+    this.setProperties({
+      loading: true,
+      currentItem: null,
+      items: null,
+    });
+
+    const catalog = this.get('catalog');
+    const selectedCatalog = this.get('selectedCatalog');
+
+    let query = this.get('showTabs') && selectedCatalog // If showTabs and we have a catalog selected
+      ? queryHelpers.createQuery(selectedCatalog, q) // Create a query for that tab.
+      : catalog && catalog.length === 1 // If there's only one entry in the catalog...
+      ? queryHelpers.createQuery(catalog[0], q) // Create a query for that one entry
+      : this._defaultSearch(q); // Otherwise perform a normal search
 
     const pageSize = this.get('pageSize');
     let params = {
-      q: parts.join(' AND '),
+      q: query,
       start: ((page - 1) * pageSize) + 1,
       num: pageSize,
       sortField: 'title'
@@ -111,6 +140,14 @@ export default Ember.Component.extend({
   },
 
   actions: {
+    chooseCatalog (val) {
+      const selectedCatalog = this.get('catalog').findBy('name', val);
+      this.set('selectedCatalogName', selectedCatalog.name);
+      this.set('selectedCatalog', selectedCatalog);
+      // Run search..
+      this._doSearch();
+    },
+
     doSearch () {
       const q = this.get('q');
       Ember.run.debounce(this, this._doSearch, q, 150);
