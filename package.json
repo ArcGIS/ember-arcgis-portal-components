@@ -15,7 +15,7 @@
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "https://github.com/ArcGIS/ember-arcgis-portal-components",
+  "repository": "https://github.com/Esri/ember-arcgis-portal-components",
   "scripts": {
     "build": "ember build",
     "start": "ember server",
@@ -57,7 +57,6 @@
     "ember-radio-button": "1.1.1",
     "ember-resolver": "^2.0.3",
     "ember-sanitize": "2.0.2",
-    "ember-source": "~2.11.0",
     "eslint-config-semistandard": "~7.0.0",
     "eslint-config-standard": "~6.0.0",
     "eslint-plugin-promise": "^2.0.1",
@@ -65,10 +64,11 @@
     "eslint-plugin-standard": "^2.0.0",
     "loader.js": "^4.0.10",
     "torii": "0.8.1",
-    "torii-provider-arcgis": "0.6.2"
+    "torii-provider-arcgis": "0.6.2",
+    "bower": "^1.8.2"
   },
   "engines": {
-    "node": ">= 0.12.0"
+    "node": ">= 6"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
