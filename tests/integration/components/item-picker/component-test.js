@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { A } from '@ember/array';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import instanceInitializer from 'dummy/instance-initializers/ember-intl';
@@ -33,7 +33,7 @@ test('it renders results', function (assert) {
     modified: 1411060006000,
     type: 'Web Map'
   };
-  const items = Ember.A([item]);
+  const items = A([item]);
   this.set('items', { results: items });
   this.render(hbs`{{item-picker items=items }}`);
   assert.equal(this.$('.item-picker-item-results-item').length, 1);

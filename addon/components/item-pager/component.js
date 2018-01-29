@@ -1,4 +1,7 @@
-import Ember from 'ember';
+import { A } from '@ember/array';
+import { alias, gt, equal } from '@ember/object/computed';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 import layout from './template';
 
 /*
@@ -10,36 +13,36 @@ import layout from './template';
     - changePage: an action that will get called with the page number to change to
 */
 
-export default Ember.Component.extend({
+export default Component.extend({
 
   layout,
 
   tagName: 'nav',
 
-  totalPages: Ember.computed('totalCount', function () {
+  totalPages: computed('totalCount', function () {
     return Math.ceil(this.get('totalCount') / this.get('pageSize'));
   }),
 
-  lastPage: Ember.computed.alias('totalPages'),
+  lastPage: alias('totalPages'),
 
-  showPagination: Ember.computed.gt('totalPages', 1),
+  showPagination: gt('totalPages', 1),
 
-  prevPage: Ember.computed('pageNumber', function () {
+  prevPage: computed('pageNumber', function () {
     return this.get('pageNumber') - 1;
   }),
 
-  nextPage: Ember.computed('pageNumber', function () {
+  nextPage: computed('pageNumber', function () {
     return this.get('pageNumber') + 1;
   }),
 
-  isFirstPage: Ember.computed.equal('pageNumber', 1),
+  isFirstPage: equal('pageNumber', 1),
 
-  isLastPage: Ember.computed('pageNumber', 'totalPages', function () {
+  isLastPage: computed('pageNumber', 'totalPages', function () {
     return this.get('pageNumber') >= this.get('totalPages');
   }),
 
-  pageRange: Ember.computed('pageNumber', 'totalPages', function () {
-    let result = Ember.A();
+  pageRange: computed('pageNumber', 'totalPages', function () {
+    let result = A();
 
     let currentPage = this.get('pageNumber');
     let totalPages = this.get('totalPages');

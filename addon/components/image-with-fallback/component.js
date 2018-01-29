@@ -1,11 +1,14 @@
-import Ember from 'ember';
+import { isArray } from '@ember/array';
+import { computed } from '@ember/object';
+import { bind, run } from '@ember/runloop';
+import Component from '@ember/component';
 import forceHttps from 'ember-arcgis-portal-components/utils/force-https';
 
 // NOTE: the test for this is in
 // packages/opendata-ui/tests/integration/components/image-with-fallback/component-test.js
-export default Ember.Component.extend({
+export default Component.extend({
   didInsertElement () {
-    this.$().on('error', Ember.run.bind(this, this.onImageError));
+    this.$().on('error', bind(this, this.onImageError));
   },
 
   willDestroyElement () {
@@ -18,21 +21,21 @@ export default Ember.Component.extend({
 
   imgIndex: 0,
 
-  imgSrcAry: Ember.computed('imgSrc', 'fallbackSrc', function () {
+  imgSrcAry: computed('imgSrc', 'fallbackSrc', function () {
     const imgSrc = this.get('imgSrc');
-    const result = Ember.isArray(imgSrc) ? imgSrc : [imgSrc];
+    const result = isArray(imgSrc) ? imgSrc : [imgSrc];
     result.push(this.get('fallbackSrc'));
     return result;
   }),
 
-  src: Ember.computed('imgSrcAry', 'imgIndex', function () {
+  src: computed('imgSrcAry', 'imgIndex', function () {
     const imgSrc = this.get('imgSrcAry')[this.get('imgIndex')];
     let protocol = window.location.protocol || 'http';
     return forceHttps(imgSrc, protocol);
   }),
 
   onImageError () {
-    Ember.run(this, function () {
+    run(this, function () {
       if (!this.get('isDestroyed') && !this.get('isDestroying')) {
         this.incrementProperty('imgIndex');
       }
