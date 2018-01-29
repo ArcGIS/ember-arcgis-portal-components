@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Changed
+- Update code to prepare for Ember 2.18 update
 
 ## [0.5.2]
 ### Fixed
