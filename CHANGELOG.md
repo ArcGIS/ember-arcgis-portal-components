@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Update code to prepare for Ember 2.18 update
 
+## [0.5.3]
+### Fixed
+- If only one layer is available, it will now be auto selected [Link](https://esriarlington.tpondemand.com/entity/82678)
+
 ## [0.5.2]
 ### Fixed
 - added missing util `force-https` and it's tests

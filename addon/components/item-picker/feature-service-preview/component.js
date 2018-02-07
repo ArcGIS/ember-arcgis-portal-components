@@ -120,18 +120,20 @@ export default Component.extend({
         if (isService) {
           if (result.layers) {
             layersAndTables = result.layers.concat(result.tables);
-            // if we only have one... select it...
-            if (layersAndTables.length === 1) {
-              layersAndTables[0].checked = true;
-              this.set('selectedLayer', layersAndTables[0]);
-            } else {
-              this.set('selectedLayer', null);
-            }
           }
         } else {
           // we need to make something that looks like a layer out of the getLayerInfo
           layersAndTables.push(result);
         }
+
+        // if we only have one... select it...
+        if (layersAndTables.length === 1) {
+          layersAndTables[0].checked = true;
+          this.set('selectedLayer', layersAndTables[0]);
+        } else {
+          this.set('selectedLayer', null);
+        }
+
         return layersAndTables;
       })
       .catch((err) => {
