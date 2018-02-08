@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 ### Changed
 - Update code to prepare for Ember 2.18 update
+- Update styling to better provide visual hierarchy [link](https://esriarlington.tpondemand.com/entity/83080)
 
 ## [0.5.3]
 ### Fixed

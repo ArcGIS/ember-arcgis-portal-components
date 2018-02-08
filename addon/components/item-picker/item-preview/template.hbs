@@ -4,7 +4,7 @@
   </p>
 {{/if}}
 {{image-with-fallback imgSrc=thumbnailUrl fallbackSrc='ember-arcgis-portal-components/assets/images/default-dataset-thumb.png'}}
-<h2>{{model.title}}</h2>
+<h4>{{model.title}}</h4>
 <span class="shared-by-owner">{{t (concat _i18nScope "sharedBy") }}: {{model.owner}}</span>
 <div class="item-picker-current-item-preview-meta">
 	<div><i class="glyphicon glyphicon-calendar"></i>{{ format-time model.modified }}</div>

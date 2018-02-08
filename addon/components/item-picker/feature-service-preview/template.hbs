@@ -1,4 +1,4 @@
-<h2>{{model.title}}</h2>
+<h4>{{model.title}}</h4>
 <span class="shared-by-owner">{{t (concat _i18nScope "sharedBy") }}: {{model.owner}}</span>
 
 <div class="item-picker-current-item-preview-meta">
@@ -14,7 +14,7 @@
 
 {{#if showLayers}}
   <section class="layer-picker-controls">
-  <h5>{{t (concat _i18nScope "layerList")}}</h5>
+  <h6>{{t (concat _i18nScope "layerList")}}</h6>
 
   {{#if isLoading}}
     {{loading-indicator msg=(t (concat _i18nScope "loadingLayers"))}}

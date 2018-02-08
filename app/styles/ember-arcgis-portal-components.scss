@@ -47,11 +47,12 @@ div.panel-body:has(.item-picker) {
         display: block;
         font-size: 1rem;
         h2 {
+          // controls the contents of the item rows
           margin: 0; // width: 250px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          font-size: 1.5rem;
+          font-size: $font-size-base;
         }
         .shared-by {
           color: $off-black;
@@ -62,7 +63,7 @@ div.panel-body:has(.item-picker) {
         margin-right: 10px;
       }
       &.is-selected {
-        background-color: #d9edf7;
+        background-color: $calcite-blue-lightest;
       }
       &.select-multiple {
         a:first-child {
@@ -121,6 +122,10 @@ div.panel-body:has(.item-picker) {
     border-top: solid 1px $calcite-gray-lighter;
     border-left: solid 1px $calcite-gray-lighter;
     box-shadow: -6px 0px 6px -6px $calcite-gray-lighter;
+    h4 {
+      font-size: $font-size-h4;
+      margin: 10px 0px;
+    }
     .item-picker-current-item-preview {
       position: absolute;
       height: calc(100% - 10px);
@@ -133,8 +138,8 @@ div.panel-body:has(.item-picker) {
         height: 133px;
       }
       h2 {
-        font-size: 1.8rem;
-        color: #4c4c4c;
+        font-size: $font-size-h4;
+        color: $off-black;
         margin: 0px auto 15px auto;
         font-weight: 500;
       }
@@ -152,7 +157,7 @@ div.panel-body:has(.item-picker) {
           height: 13px;
           position: absolute;
           bottom: 0px;
-          box-shadow: inset 0px -33px 32px -23px #fff;
+          box-shadow: inset 0px -33px 32px -23px $white;
         }
       }
       .item-picker-current-item-preview-meta {
@@ -169,7 +174,7 @@ div.panel-body:has(.item-picker) {
       right: 0px;
       width: 100%;
       border-spacing: 15px;
-      background-color: #fff;
+      background-color: $white;
       padding-top: 15px;
       .full-width-btn {
         padding-left: 15px;
