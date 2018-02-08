@@ -55,7 +55,7 @@ export default Component.extend({
   /**
    * Construct the preview url
    */
-  previewUrl: Ember.computed('model', function () {
+  previewUrl: computed('model', function () {
     const item = this.get('model');
     let previewURL;
     // if the item has a url property, use that...
