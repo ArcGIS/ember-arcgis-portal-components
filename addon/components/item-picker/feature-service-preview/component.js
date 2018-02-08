@@ -53,6 +53,30 @@ export default Component.extend({
   }),
 
   /**
+   * Construct the preview url
+   */
+  previewUrl: Ember.computed('model', function () {
+    const item = this.get('model');
+    let previewURL;
+    // if the item has a url property, use that...
+    if (item.url) {
+      previewURL = item.url;
+    } else {
+      // compute a url based on the type...
+      const protocol = '//';
+      let host = this.get('session.portalHostname');
+      switch (item.type.toLowerCase()) {
+        case 'web map':
+          previewURL = `${protocol}${host}/home/webmap/viewer.html?webmap=${item.id}`;
+          break;
+        default:
+          previewURL = `${protocol}${host}/home/item.html?id=${item.id}`;
+      }
+    }
+    return previewURL;
+  }),
+
+  /**
    * Disable the select button if...
    * ... we have an error
    * ... we need to choose a layer, and have not selected one
