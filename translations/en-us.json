@@ -11,6 +11,7 @@
       "loadingLayers": "Loading Layers...",
       "layerList": "Layers and Tables",
       "sharedBy": "Shared by",
+      "relatedEvents": "Related Events",
       "selectedCount": "Total Datasets Selected: {count}",
       "licenses": {
         "none": "No license specified",
