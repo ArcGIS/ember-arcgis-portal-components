@@ -1,6 +1,8 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { debug } from '@ember/debug';
+import Controller from '@ember/controller';
 import fetch from 'ember-network/fetch';
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   getToken (username, password, portalBaseUrl) {
     let url = `https://${portalBaseUrl}/sharing/rest/generateToken?f=json`;
@@ -80,7 +82,7 @@ export default Ember.Controller.extend({
           error = new Error(json.error.message);
           error.code = json.error.code || 404;
           error.response = response;
-          Ember.debug('Error in response:  ' + json.error.message);
+          debug('Error in response:  ' + json.error.message);
           throw error;
         } else {
           return json;
@@ -92,7 +94,7 @@ export default Ember.Controller.extend({
       throw error;
     }
   },
-  expires: Ember.computed('model.expiresAt', function () {
+  expires: computed('model.expiresAt', function () {
     if (this.get('model.expiresAt')) {
       return new Date(this.get('model.expiresAt')).toISOString();
     } else {
@@ -100,7 +102,7 @@ export default Ember.Controller.extend({
     }
   }),
 
-  portalOpts: Ember.computed('model.token', function () {
+  portalOpts: computed('model.token', function () {
     if (this.get('model.token')) {
       return {
         portalHostname: this.get('model.portalBaseUrl'),

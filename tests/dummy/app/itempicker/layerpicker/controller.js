@@ -1,8 +1,11 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import { copy } from '@ember/object/internals';
+import { inject as service } from '@ember/service';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   selectedItem: null,
-  itemService: Ember.inject.service('items-service'),
+  itemService: service('items-service'),
   url: 'http://dc.mapsqa.arcgis.com',
   catalog: [
     {
@@ -49,7 +52,7 @@ export default Ember.Controller.extend({
   },
 
   _validator (item) {
-    const copyItem = Ember.copy(item, true);
+    const copyItem = copy(item, true);
     const isHttp = /^(http:)\/\//;
     const url = `${copyItem.url.replace(/\s+/g, '')}?f=json`;
 
@@ -85,7 +88,7 @@ export default Ember.Controller.extend({
   },
 
   _useHttpsIfPossible (state) {
-    const tempState = Ember.copy(state, true);
+    const tempState = copy(state, true);
     const httpsUrl = `https${tempState.item.url.substring(4)}`;
     return this._request(httpsUrl)
       .then((response) => {
@@ -113,7 +116,7 @@ export default Ember.Controller.extend({
   },
   actions: {
     onSelectItem (selected) {
-      Ember.$('#myModal').modal('hide');
+      $('#myModal').modal('hide');
       this.set('selectedItem', selected);
     },
     selectionValidator (item) {
