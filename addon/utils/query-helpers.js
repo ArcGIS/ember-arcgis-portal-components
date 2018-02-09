@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import { A } from '@ember/array';
 /**
  * blah
  */
 function createQuery (catalog, searchString, isHex) {
-  const queryParts = Ember.A([]);
+  const queryParts = A([]);
   const queryObj = catalog.params.query;
 
   if (searchString) {
@@ -40,7 +40,7 @@ function getFieldQuery (fieldName, fieldArray) {
   const addParts = includedParams(fieldName, fieldArray);
 
   // collect parts into an array so we can cleanly join them
-  const q = Ember.A([]);
+  const q = A([]);
   if (addParts.length) {
     q.push(`( ${addParts.join(' OR ')} )`);
   }

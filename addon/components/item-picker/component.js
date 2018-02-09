@@ -1,11 +1,17 @@
-import Ember from 'ember';
+import { debounce } from '@ember/runloop';
+import { isEmpty } from '@ember/utils';
+import { A } from '@ember/array';
+import { computed } from '@ember/object';
+import { not, notEmpty, reads } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import layout from './template';
 import queryHelpers from 'ember-arcgis-portal-components/utils/query-helpers';
 import isGuid from 'ember-arcgis-portal-components/utils/is-guid';
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
-  intl: Ember.inject.service(),
-  itemService: Ember.inject.service('items-service'),
+  intl: service(),
+  itemService: service('items-service'),
   classNames: [ 'item-picker', 'clearfix', 'row' ],
 
   /**
@@ -22,9 +28,9 @@ export default Ember.Component.extend({
     }
   },
 
-  disableAddItems: Ember.computed.not('hasItemsToAdd'),
-  showNoItemsMsg: Ember.computed.notEmpty('noItemsFoundMsg'),
-  hasItemsToAdd: Ember.computed.notEmpty('itemsToAdd'),
+  disableAddItems: not('hasItemsToAdd'),
+  showNoItemsMsg: notEmpty('noItemsFoundMsg'),
+  hasItemsToAdd: notEmpty('itemsToAdd'),
   isValidating: false,
   selectAnyway: false,
   shouldValidate: false,
@@ -32,14 +38,14 @@ export default Ember.Component.extend({
   /**
    * Compute the translation scope
    */
-  _i18nScope: Ember.computed('i18nScope', function () {
+  _i18nScope: computed('i18nScope', function () {
     return `${this.getWithDefault('i18nScope', 'ember-arcgis-portal-components.itemPicker')}.`;
   }),
 
   /**
    * Allow a loading component to be specified as a parameter
    */
-  loadingComponent: Ember.computed('loadingComponentName', function () {
+  loadingComponent: computed('loadingComponentName', function () {
     let result = 'loading-indicator';
     if (this.get('loadingComponentName')) {
       result = this.get('loadingComponentName');
@@ -51,7 +57,7 @@ export default Ember.Component.extend({
    * Determine what preview component to use. This allows us to create
    * per-type UX for the preview
    */
-  previewComponent: Ember.computed('currentItem', function () {
+  previewComponent: computed('currentItem', function () {
     let type = this.get('currentItem.type');
     let componentName = 'item-picker/item-preview';
 
@@ -64,25 +70,25 @@ export default Ember.Component.extend({
     return componentName;
   }),
 
-  inputElementId: Ember.computed(function () {
+  inputElementId: computed(function () {
     return `${this.get('elementId')}-search-items`;
   }),
 
-  placeholder: Ember.computed('_i18nScope', function () {
+  placeholder: computed('_i18nScope', function () {
     return this.get('intl').t(`${this.get('_i18nScope')}searchItems`);
   }),
 
   query: '',
 
-  pageSize: Ember.computed(function () {
+  pageSize: computed(function () {
     return this.get('rowCount') || 10;
   }),
 
-  items: Ember.A([]),
+  items: A([]),
 
-  totalCount: Ember.computed.reads('items.total'),
+  totalCount: reads('items.total'),
 
-  pageNumber: Ember.computed('items.start', 'items.total', function () {
+  pageNumber: computed('items.start', 'items.total', function () {
     const pageSize = this.get('pageSize');
     const start = this.get('items.start');
     return ((start - 1) / pageSize) + 1;
@@ -93,7 +99,7 @@ export default Ember.Component.extend({
   /**
    * Do we show facets? if we have more than one entry in the catalog, yes
    */
-  showFacets: Ember.computed('catalog', function () {
+  showFacets: computed('catalog', function () {
     const catalog = this.get('catalog');
     if (catalog && catalog.length > 1) {
       return true;
@@ -101,7 +107,7 @@ export default Ember.Component.extend({
     return false;
   }),
 
-  onlyOneCataEntry: Ember.computed('catalog', 'selectedCatalog', function () {
+  onlyOneCataEntry: computed('catalog', 'selectedCatalog', function () {
     const catalog = this.get('catalog');
     if (catalog && catalog.length === 1) {
       return catalog[0];
@@ -109,11 +115,11 @@ export default Ember.Component.extend({
     return undefined;
   }),
 
-  noItemsFoundMsg: Ember.computed('items.[]', 'q', function () {
+  noItemsFoundMsg: computed('items.[]', 'q', function () {
     let result = '';
     if (this.get('hasSearched') && this.get('items.results.length') === 0) {
       let i18nKey = 'noItems.withoutQuery';
-      if (!Ember.isEmpty(this.get('q'))) {
+      if (!isEmpty(this.get('q'))) {
         i18nKey = 'noItems.withQuery';
       }
       i18nKey = `${this.get('_i18nScope')}${i18nKey}`;
@@ -122,7 +128,7 @@ export default Ember.Component.extend({
     return result;
   }),
 
-  errorMessage: Ember.computed('isValidating', 'errorHash', function () {
+  errorMessage: computed('isValidating', 'errorHash', function () {
     const errorHash = this.get('errorHash');
     if (!this.get('isValidating') && errorHash && errorHash.status) {
       if (errorHash.status === 'warning' || errorHash.status === 'error') {
@@ -228,7 +234,7 @@ export default Ember.Component.extend({
     doSearch (query) {
       const q = query;
       this.set('q', q);
-      Ember.run.debounce(this, this._doSearch, q, 150);
+      debounce(this, this._doSearch, q, 150);
     },
     /**
      * Paging

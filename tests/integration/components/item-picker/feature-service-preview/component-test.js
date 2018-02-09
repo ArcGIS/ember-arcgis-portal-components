@@ -1,6 +1,7 @@
+import { resolve } from 'rsvp';
+import Service from '@ember/service';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 import instanceInitializer from 'dummy/instance-initializers/ember-intl';
 
 moduleForComponent('item-picker/feature-service-preview', 'Integration | Component | item picker/feature service preview', {
@@ -10,13 +11,13 @@ moduleForComponent('item-picker/feature-service-preview', 'Integration | Compone
     let intl = this.container.lookup('service:intl');
     intl.setLocale('en-us');
 
-    const session = Ember.Service.extend({});
+    const session = Service.extend({});
     this.register('service:session', session);
   },
   beforeEach () {
-    const featureService = Ember.Service.extend({
+    const featureService = Service.extend({
       getLayerInfo () {
-        return Ember.RSVP.resolve(2);
+        return resolve(2);
       }
     });
     this.register('service:feature-service', featureService);
