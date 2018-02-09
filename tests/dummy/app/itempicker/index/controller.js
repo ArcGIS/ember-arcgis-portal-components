@@ -1,13 +1,15 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import { inject as service } from '@ember/service';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   selectedItem: null,
 
-  itemService: Ember.inject.service('items-service'),
+  itemService: service('items-service'),
 
   actions: {
     onSelectItem (selected) {
-      Ember.$('#myModal').modal('hide');
+      $('#myModal').modal('hide');
       this.set('selectedItem', selected);
     }
   }
