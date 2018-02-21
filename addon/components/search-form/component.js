@@ -20,19 +20,13 @@ export default Component.extend({
   tagName: 'form',
   classNames: ['portal-search-form', 'form-group-tsf'],
 
-  /**
-   * Compute the translation scope
-   */
-  _i18nScope: computed('i18nScope', function () {
-    return `${this.getWithDefault('i18nScope', 'addons.components.searchForm')}.`;
-  }),
-
   inputElementId: computed('elementId', function () {
     return this.get('elementId') + 'Input';
   }),
 
-  placeholderi18nKey: computed('_i18nScope', function () {
-    return this.get('_i18nScope') + 'searchItems';
+  placeholderi18nKey: computed('i18nScope', function () {
+    // Compute the translation scope
+    return `${this.getWithDefault('i18nScope', 'addons.components.searchForm.searchItems')}`;
   }),
 
   didReceiveAttrs () {

@@ -21,6 +21,9 @@
     background-color: transparent;
     border: 0px;
   }
+  .input-group .form-control{
+    margin-bottom: 1px;
+  }
 }
 div.panel-body:has(.item-picker) {
   padding: 15px 15px 0px 15px;
