@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Changed
+- minor {{search-form}} tweaks
+
 ## [0.7.0]
 ### Changed
 - Upgrade to ember 2.18 [link](https://esriarlington.tpondemand.com/entity/83424)
