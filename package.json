@@ -1,6 +1,6 @@
 {
   "name": "ember-arcgis-portal-components",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Ember components that help when working with ArcGIS Online/Enterprise items",
   "keywords": [
     "esri",
