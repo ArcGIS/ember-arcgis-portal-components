@@ -20,7 +20,7 @@ import layout from './template';
 export default Component.extend({
 
   classNames: [ 'item-picker-current-item-preview' ],
-  description: reads('model.description'),
+  description: reads('model.item.description'),
   featureService: service('feature-service'),
   forceLayerSelection: alias('showLayers'),
   hasSelectedLayer: notEmpty('selectedLayer'),
@@ -60,8 +60,8 @@ export default Component.extend({
   * ... a feature service
   */
 
-  showLayers: computed('model.type', function () {
-    const type = this.get('model.type');
+  showLayers: computed('model.item.type', function () {
+    const type = this.get('model.item.type');
     switch (type.toLowerCase()) {
       case 'feature service':
       case 'map service':
@@ -226,7 +226,7 @@ export default Component.extend({
     // only do this if we are going to show the layers
     if (this.get('showLayers')) {
       const model = this.get('model');
-      if (this.get('cachedModel.id') !== model.id) {
+      if (this.get('cachedModel.item.id') !== model.item.id) {
         // reset some state...
         this.set('cachedModel', model);
         this.onItemChanged();
@@ -244,8 +244,8 @@ export default Component.extend({
   /**
    * Get the translated form of the Item Type
    */
-  itemType: computed('_i18nScope', 'model.type', function () {
-    const itemType = this.get('model.type');
+  itemType: computed('_i18nScope', 'model.item.type', function () {
+    const itemType = this.get('model.item.type');
     let result = itemType;
     const key = `${this.get('_i18nScope')}shared.itemType.${itemType.camelize()}`;
     const intl = this.get('intl');
