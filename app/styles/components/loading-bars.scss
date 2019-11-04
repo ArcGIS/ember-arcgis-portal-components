@@ -1,158 +1,168 @@
-// ┌────────┐
-// │ Loader     │
-// └────────┘
-//  Adapted from: https://github.com/Esri/calcite-web/blob/master/dist/sass/calcite-web/components/_loader.scss
-$loader-width: 0.85rem;
-$loader-height: 2rem;
-$loader-zoom: 0.5rem;
-$loader-spacing: 1.25rem;
-$loader-speed: 0.8s;
-$loader-delay: 0.16s;
-
-@mixin loader() {
-  display: none;
-  position: relative;
-  &.is-active {
-    display: block;
-  }
-}
-
-%loader-styles {
-  background: $calcite-blue-core;
-  -webkit-animation: load $loader-speed infinite ease-in-out;
-  animation: load $loader-speed infinite ease-in-out;
-  width: $loader-width;
-  height: $loader-height;
-}
-
-%loader-pseudoelements {
-  @extend %loader-styles;
-  position: absolute;
-  top: 0;
-  content: '';
-}
-
-@mixin loader-bars() {
-  @extend %loader-styles;
-  text-indent: -9999em;
-  margin: auto;
-  position: absolute;
-  right: calc(50% - #{$loader-width / 2});
-  font-size: 11px;
-  -webkit-animation-delay: $loader-delay;
-  animation-delay: $loader-delay;
-  &:before{
-    @extend %loader-pseudoelements;
-    left: -$loader-spacing;
-  }
-  &:after {
-    @extend %loader-pseudoelements;
-    left: $loader-spacing;
-    -webkit-animation-delay: 2*$loader-delay;
-    animation-delay: 2*$loader-delay;
-  }
-}
-
-@mixin loader-text() {
-  text-align: center;
-  padding-top: 4rem;
-}
-
-@-webkit-keyframes load {
-  0%,
-  80%,
-  100% {
-    opacity: 0.75;
-    box-shadow: 0 0 $calcite-blue-core;
-    height: $loader-height;
-  }
-  40% {
-    opacity: 1;
-    box-shadow: 0 -1*$loader-zoom $calcite-blue-core;
-    height: $loader-height+$loader-zoom;
-  }
-}
-@keyframes load {
-  0%,
-  80%,
-  100% {
-    opacity: 0.75;
-    box-shadow: 0 0 $calcite-blue-core;
-    height: $loader-height;
-  }
-  40% {
-    opacity: 1;
-    box-shadow: 0 -1*$loader-zoom $calcite-blue-core;
-    height: $loader-height+$loader-zoom;
-  }
-}
-
-.loader-old {@include loader();}
-.loader-bars {@include loader-bars();}
-.loader-text {@include loader-text();}
-
-
-
-
-.loading {
-  padding-top: 5rem;
-}
 .loader-old {
+  // ┌────────┐
+  // │ Loader     │
+  // └────────┘
+  //  Adapted from: https://github.com/Esri/calcite-web/blob/master/dist/sass/calcite-web/components/_loader.scss
+  $loader-width: 0.85rem;
+  $loader-height: 2rem;
+  $loader-zoom: 0.5rem;
+  $loader-spacing: 1.25rem;
+  $loader-speed: 0.8s;
+  $loader-delay: 0.16s;
+
+  @mixin loader() {
+    display: none;
+    position: relative;
+    &.is-active {
+      display: block;
+    }
+  }
+
+  %loader-styles {
+    background: $calcite-blue-core;
+    -webkit-animation: load $loader-speed infinite ease-in-out;
+    animation: load $loader-speed infinite ease-in-out;
+    width: $loader-width;
+    height: $loader-height;
+  }
+
+  %loader-pseudoelements {
+    @extend %loader-styles;
+    position: absolute;
+    top: 0;
+    content: '';
+  }
+
+  @mixin loader-bars() {
+    @extend %loader-styles;
+    text-indent: -9999em;
+    margin: auto;
+    position: absolute;
+    right: calc(50% - #{$loader-width / 2});
+    font-size: 11px;
+    -webkit-animation-delay: $loader-delay;
+    animation-delay: $loader-delay;
+    &:before {
+      @extend %loader-pseudoelements;
+      left: -$loader-spacing;
+    }
+    &:after {
+      @extend %loader-pseudoelements;
+      left: $loader-spacing;
+      -webkit-animation-delay: 2*$loader-delay;
+      animation-delay: 2*$loader-delay;
+    }
+  }
+
+  @mixin loader-text() {
+    text-align: center;
+    padding-top: 4rem;
+  }
+
+  @-webkit-keyframes load {
+    0%,
+    80%,
+    100% {
+      opacity: 0.75;
+      box-shadow: 0 0 $calcite-blue-core;
+      height: $loader-height;
+    }
+    40% {
+      opacity: 1;
+      box-shadow: 0 -1*$loader-zoom $calcite-blue-core;
+      height: $loader-height+$loader-zoom;
+    }
+  }
+  @keyframes load {
+    0%,
+    80%,
+    100% {
+      opacity: 0.75;
+      box-shadow: 0 0 $calcite-blue-core;
+      height: $loader-height;
+    }
+    40% {
+      opacity: 1;
+      box-shadow: 0 -1*$loader-zoom $calcite-blue-core;
+      height: $loader-height+$loader-zoom;
+    }
+  }
+
+  @include loader();
+
+  .loader-bars {
+    @include loader-bars();
+  }
+
+  .loader-text {
+    @include loader-text();
+  }
+
+
+  .loading {
+    padding-top: 5rem;
+  }
+
   &.small {
     top: 0.25rem;
     width: 1.2rem;
     height: 1.8rem;
+
     .loader-bars:before, .loader-bars:after, .loader-bars {
       width: 0.6rem;
       height: 1.65rem;
       -webkit-animation: load-small 0.8s infinite ease-in-out;
       animation: load-small 0.8s infinite ease-in-out;
     }
+
     .loader-bars {
       right: 25%;
       -webkit-animation-delay: 0.16s;
       animation-delay: 0.16s;
-      &:before{
+
+      &:before {
         left: -0.85rem;
       }
+
       &:after {
         left: 0.85rem;
         -webkit-animation-delay: 0.32s;
         animation-delay: 0.32s;
       }
     }
+
     .loader-text {
       display: none;
     }
   }
-}
 
-@-webkit-keyframes load-small {
-  0%,
-  80%,
-  100% {
-    opacity: 0.75;
-    box-shadow: 0 0 $calcite-blue-core;
-    height: 1.65rem;
+  @-webkit-keyframes load-small {
+    0%,
+    80%,
+    100% {
+      opacity: 0.75;
+      box-shadow: 0 0 $calcite-blue-core;
+      height: 1.65rem;
+    }
+    40% {
+      opacity: 1;
+      box-shadow: 0 -0.5rem $calcite-blue-core;
+      height: 1.85rem;
+    }
   }
-  40% {
-    opacity: 1;
-    box-shadow: 0 -0.5rem $calcite-blue-core;
-    height: 1.85rem;
-  }
-}
 
-@keyframes load-small {
-  0%,
-  80%,
-  100% {
-    opacity: 0.75;
-    box-shadow: 0 0 $calcite-blue-core;
-    height: 1.65rem;
-  }
-  40% {
-    opacity: 1;
-    box-shadow: 0 -0.5rem $calcite-blue-core;
-    height: 1.85rem;
+  @keyframes load-small {
+    0%,
+    80%,
+    100% {
+      opacity: 0.75;
+      box-shadow: 0 0 $calcite-blue-core;
+      height: 1.65rem;
+    }
+    40% {
+      opacity: 1;
+      box-shadow: 0 -0.5rem $calcite-blue-core;
+      height: 1.85rem;
+    }
   }
 }
