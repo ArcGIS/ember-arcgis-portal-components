@@ -15,7 +15,8 @@
   <h6>{{t (concat _i18nScope "layerList")}}</h6>
 
   {{#if isLoading}}
-    {{loading-indicator msg=(t (concat _i18nScope "loadingLayers"))}}
+    {{!--TODO replace with loading-indicator when this component is moved to opendata-ui--}}
+    {{loading-bars msg=(t (concat _i18nScope "loadingLayers"))}}
   {{else}}
       {{#if showError}}
         <p class="alert {{messageClass}}" id="val-error">

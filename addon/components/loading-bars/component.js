@@ -16,16 +16,18 @@ import Component from '@ember/component';
 import layout from './template';
 
 /**
- * loading-indicator component
+ * loading-bars component
  *
  * Default Usage
- * {{loading-indicator}} - will pull in a default translated message
+ * {{loading-bars}} - will pull in a default translated message
  *
  * Passing a custom message
- * {{loading-indicator message=(t 'some.translation.key')}}
+ * {{loading-bars message=(t 'some.translation.key')}}
  *
  * No Message - no message is shown
- * {{loading-indicator noMessage=true}}
+ * {{loading-bars noMessage=true}}
+ *
+ * Remove this component entirely when migrating EAPC to opendata-ui
  */
 
 export default Component.extend({
@@ -33,7 +35,7 @@ export default Component.extend({
   intl: service(),
 
   tagName: 'div',
-  classNames: [ 'loader' ],
+  classNames: [ 'loader-old' ],
   classNameBindings: [ 'isActive' ],
 
   // default message

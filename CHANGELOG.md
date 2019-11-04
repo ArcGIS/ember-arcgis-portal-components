@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Changed
+- rename `loading-indicator` to `loading-bars` so that it doesn't step on opendata-ui
+
 ## 1.3.5
 
 ### Changed

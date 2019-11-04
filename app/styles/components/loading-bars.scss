@@ -87,7 +87,7 @@ $loader-delay: 0.16s;
   }
 }
 
-.loader {@include loader();}
+.loader-old {@include loader();}
 .loader-bars {@include loader-bars();}
 .loader-text {@include loader-text();}
 
@@ -97,7 +97,7 @@ $loader-delay: 0.16s;
 .loading {
   padding-top: 5rem;
 }
-.loader {
+.loader-old {
   &.small {
     top: 0.25rem;
     width: 1.2rem;

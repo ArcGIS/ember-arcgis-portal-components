@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | loading indicator', function (hooks) {
+module('Integration | Component | loading bars', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
@@ -13,7 +13,7 @@ module('Integration | Component | loading indicator', function (hooks) {
 
   test('it renders', async function (assert) {
     assert.expect(1);
-    await render(hbs`{{loading-indicator}}`);
+    await render(hbs`{{loading-bars}}`);
     assert.equal(find('*').textContent.trim(), 'Loading...');
   });
 });

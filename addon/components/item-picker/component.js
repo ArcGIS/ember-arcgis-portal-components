@@ -64,7 +64,7 @@ export default Component.extend({
    * Allow a loading component to be specified as a parameter
    */
   loadingComponent: computed('loadingComponentName', function () {
-    let result = 'loading-indicator';
+    let result = 'loading-bars';
     if (this.get('loadingComponentName')) {
       result = this.get('loadingComponentName');
     }
